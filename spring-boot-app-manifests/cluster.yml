@@ -1,0 +1,16 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: minimal-eks-cluster
+  region: us-east-2  # Change to your preferred region
+
+nodeGroups:
+  - name: ng-small
+    instanceType: t3.small  # Low-cost instance type
+    desiredCapacity: 1      # Minimum number of nodes
+    minSize: 1
+    maxSize: 1
+    volumeSize: 10          # Small disk size
+    ssh:
+      publicKeyName: personalkey # Allow SSH for debugging (optional)
