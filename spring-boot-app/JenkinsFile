@@ -12,27 +12,27 @@ pipeline {
       }
     }
     stage ('Build Maven') {
-      steps{
+      steps { 
         'cd spring-boot-app && mvn clean package'
       }
     }
-    stage ('static code analysis'){
-      environment{
+    stage ('static code analysis') {
+      environment {
         SONAR_URL = "http://18.217.186.102:9000/"
       }
-      steps{
+      steps {
         withCredentials ( [string(credentialsId : 'sonarqube',varaible: 'SONAR_AUTH_TOKEN')]) {
           'cd spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.url=${SONAR_URL}'
         }
       }
     }
-    stage('build docker and push to docker hub'){
-      environment{
+    stage('build docker and push to docker hub') {
+      environment {
         DOCKER_IMAGE="smkayathiri/ci-cd:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS=withCredentials("docker-credentials")
       }
-      steps{
-        script{
+      steps {
+        script {
           sh 'cd spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
           def dockerImage = docker.image("${DOCKER_IMAGE}")
           docker.withRegistry("https://index.docker.io/v1/","docker-credentials"){
@@ -41,13 +41,13 @@ pipeline {
         }
       }
     }
-    stage('Deploy to Agro'){
-      environment{
+    stage('Deploy to Agro') {
+      environment {
         GIT_REPO_NAME = "Jenkins-End-to-End-CI-CD-Agro-Project"
         GIT_USER_NAME = "somameenakayathirim"
       }
-      steps{
-        withCredentials([string(credentialsId : 'github',variable : 'GIT_AUTH_TOKEN' )]){
+      steps {
+        withCredentials([string(credentialsId : 'github',variable : 'GIT_AUTH_TOKEN' )]) {
           sh '''
              git config user.name "Kayathiri"
              BUILD_NUMBER = ${BUILD_NUMBER}
