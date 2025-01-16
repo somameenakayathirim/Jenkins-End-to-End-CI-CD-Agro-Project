@@ -50,7 +50,7 @@ pipeline {
         withCredentials([string(credentialsId : 'github',variable : 'GIT_AUTH_TOKEN' )]) {
           sh '''
              git config user.name "Kayathiri"
-             BUILD_NUMBER = ${BUILD_NUMBER}
+             BUILD_NUMBER=${BUILD_NUMBER}
              sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
              git add spring-boot-app-manifests/deployment.yml
              git commit -m "Update the build version ${BUILD_NUMBER}"
