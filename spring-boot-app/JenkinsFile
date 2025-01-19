@@ -55,7 +55,7 @@ qe32WIHbZ9+bTU+gfuCk9TsJDc0KGqpDvQzK0F3wXoQx6A9NEuROd7mhqKTKZymv
 9dZxIx2XAT5v3Tod7CFJ4a0oiht7aN1uaivJVJr5slTCb3yytqYqEK4OMxDH3xt/
 ON2JHjGMZZY/vNgAtyy2eDt+FwcWAOYCumB73Pg/xh62fkyO+hYmaz/3D7K3f3n/
 HU4iXvvtIXiejbudxrrjcqQhC1Jk0bxy0Q9d60uuh/gK8Amomy+qA9nU9XVf5l3A
-yTQHYvsmIwJXuQ==', credentialsId: 'kubernetes', serverUrl: 'https://172.30.51.2:8443') {
+yTQHYvsmIwJXuQ==', credentialsId: 'Kubernetes', serverUrl: 'https://172.22.206.188:8443') {
 				 // Replace the image tag dynamically using kubectl set image
             sh """
             kubectl set image deployment/spring-boot-app spring-boot-app=${env.IMAGE_NAME}
