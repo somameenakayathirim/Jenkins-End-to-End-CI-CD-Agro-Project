@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'smkayathiri/maven-docker-agent:v1'
-      args '--user root -v /var/run/podman.sock:/var/run/podman.sock'
+
     }
   }
   stages{
