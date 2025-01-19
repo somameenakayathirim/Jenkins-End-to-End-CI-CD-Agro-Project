@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'smkayathiri/maven-docker-agent:v1'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
-  }
+  agent any
   stages{
     stage('checkout') {
       steps {
