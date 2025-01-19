@@ -8,7 +8,7 @@ pipeline {
     }
     stage ('Build Maven') {
       steps { 
-        sh 'cd spring-boot-app && mvn clean package'
+        bat 'cd spring-boot-app && mvn clean package'
       }
     }
 
@@ -19,7 +19,7 @@ pipeline {
       }
       steps {
         script {
-          sh 'cd spring-boot-app && podman build -t ${DOCKER_IMAGE} .'
+          bat 'cd spring-boot-app && podman build -t ${DOCKER_IMAGE} .'
           def podmanImage = podman.image("${DOCKER_IMAGE}")
 		  env.IMAGE_NAME = ${DOCKER_IMAGE}
           podman.withRegistry("https://index.docker.io/v1/","docker-cred"){
@@ -34,10 +34,10 @@ pipeline {
 				steps {
 					kubeconfig(caCertificate: 'MIIDBjCCAe6gAwIBAgIBATANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwptaW5pa3ViZUNBMB4XDTI0MDkyMDEwMzAxOFoXDTM0MDkxOTEwMzAxOFowFTETMBEGA1UEAxMKbWluaWt1YmVDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMCOoVUtJRuyCtU/LRFG0LLfbNzeWvbJfzI7JZTreULJDBlFO4UBIc6aCD9G9MXZsrzwK7mJLWw9kcX9+g3u6Wsm04SJirJxIwo7Qq8icwwLzM/1LPk0cr5rVo/gGkMkOocgVfINohSTTwf0Fy6Q0HEiLV5WRdORrVDOuXf5UocSKRRoS/JxrW9it+svv9YS4gu2KrDUljTxkcaVJ0qMJk7rSHmkU/kkqvTvbkFgAqOrJfoDpl6vySCtfyl5vBYE3fZLVBGsJMmSfm87WmUbZcxl0snaUSoHQAaGl1RiHR62AY5UywJk1t4rn4ZTDKe6jtUCIi/mckjFSRLdtPzyT7cCAwEAAaNhMF8wDgYDVR0PAQH/BAQDAgKkMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSOLvPso8d490ihI7Km2GHM3dU8jjANBgkqhkiG9w0BAQsFAAOCAQEAiD3sudPeT5JqI0HNS6fg9Wmnuj67xdpmc9rGhLvFUplKyqYEKCQ/82tCAusizNHMZY4xI/lZqe32WIHbZ9+bTU+gfuCk9TsJDc0KGqpDvQzK0F3wXoQx6A9NEuROd7mhqKTKZymv9dZxIx2XAT5v3Tod7CFJ4a0oiht7aN1uaivJVJr5slTCb3yytqYqEK4OMxDH3xt/ON2JHjGMZZY/vNgAtyy2eDt+FwcWAOYCumB73Pg/xh62fkyO+hYmaz/3D7K3f3n/HU4iXvvtIXiejbudxrrjcqQhC1Jk0bxy0Q9d60uuh/gK8Amomy+qA9nU9XVf5l3AyTQHYvsmIwJXuQ==', credentialsId: 'Kubernetes', serverUrl: 'https://172.22.206.188:8443') {
 					 // Replace the image tag dynamically using kubectl set image
-				sh """
+				bat """
 				kubectl set image deployment/spring-boot-app spring-boot-app=${env.IMAGE_NAME}
 				"""
-					 sh 'cd spring-boot-app-manifests kubectl apply -f deployment.yml'
+					 bat 'cd spring-boot-app-manifests kubectl apply -f deployment.yml'
 					 
 					 
 	                }
