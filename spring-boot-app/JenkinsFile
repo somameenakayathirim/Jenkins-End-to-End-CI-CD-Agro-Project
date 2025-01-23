@@ -43,17 +43,25 @@ pipeline {
     }
 }
 
-	stage('Install Trivy and Perform Scan') {
+	 stage('Install Trivy and Perform Scan') {
     steps {
         script {
-            // Install Trivy
+            // Install wget and Trivy without sudo
             sh '''
+            echo "Checking if wget is installed..."
+            if ! command -v wget &> /dev/null; then
+                echo "wget not found. Installing wget..."
+                apt-get update
+                apt-get install -y wget
+            fi
+
             echo "Downloading Trivy .deb package..."
-			sudo apt-get update
-            sudo apt-get install -y wget
             wget https://github.com/aquasecurity/trivy/releases/download/v0.52.2/trivy_0.52.2_Linux-64bit.deb
+
             echo "Installing Trivy..."
-            sudo dpkg -i trivy_0.52.2_Linux-64bit.deb
+            dpkg -i trivy_0.52.2_Linux-64bit.deb
+
+            echo "Verifying Trivy installation..."
             trivy --version
             '''
 
