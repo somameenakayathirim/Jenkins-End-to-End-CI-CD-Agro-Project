@@ -39,7 +39,7 @@ pipeline {
     }
     stage('Debug Environment') {
     steps {
-        sh 'env && which trivy'
+        sh 'env'
     }
 }
 
