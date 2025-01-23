@@ -49,6 +49,8 @@ pipeline {
             // Install Trivy
             sh '''
             echo "Downloading Trivy .deb package..."
+			sudo apt-get update
+            sudo apt-get install -y wget
             wget https://github.com/aquasecurity/trivy/releases/download/v0.52.2/trivy_0.52.2_Linux-64bit.deb
             echo "Installing Trivy..."
             sudo dpkg -i trivy_0.52.2_Linux-64bit.deb
