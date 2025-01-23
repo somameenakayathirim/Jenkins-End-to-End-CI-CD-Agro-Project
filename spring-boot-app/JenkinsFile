@@ -8,6 +8,8 @@ pipeline {
   environment {
         DOCKER_IMAGE="smkayathiri/ci-cd:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS=credentials('docker-cred')
+		PATH = "/snap/bin:${env.PATH}"
+
       }
   stages{
    
