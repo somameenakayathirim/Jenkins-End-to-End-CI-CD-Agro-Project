@@ -46,11 +46,7 @@ pipeline {
 	stage('Security Scanning with Trivy') {
 	  steps {
 		script {
-		
-        sh """
-		 export PATH=\$PATH:/usr/bin
-         trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
-        """
+		sh "/usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE"
         
 		}
 	  }
