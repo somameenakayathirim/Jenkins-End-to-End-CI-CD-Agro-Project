@@ -35,13 +35,14 @@ pipeline {
       }
     }
     
-	stage('Security Scanning') {
+	stage('Security Scanning with Trivy') {
 	  steps {
 		echo "Scanning for vulnerabilities in Docker image: ${DOCKER_IMAGE}..."
-		sh 'docker scan ${DOCKER_IMAGE}'
+		sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_IMAGE}'
 	  }
 	}
-
+	
+	
  
 	stage('Deploy to Agro') {
       environment {
