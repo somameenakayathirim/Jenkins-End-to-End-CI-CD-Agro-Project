@@ -49,7 +49,7 @@ pipeline {
 		
         sh """
 		   . /etc/profile
-          /home/ubuntu/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
+          /usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
         """
         
 		}
