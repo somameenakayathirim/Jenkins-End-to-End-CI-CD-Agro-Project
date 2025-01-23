@@ -43,14 +43,27 @@ pipeline {
     }
 }
 
-	stage('Security Scanning with Trivy') {
-	  steps {
-		script {
-		sh "/usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE"
-        
-		}
-	  }
-	}
+	stage('Install Trivy and Perform Scan') {
+    steps {
+        script {
+            // Install Trivy
+            sh '''
+            echo "Downloading Trivy .deb package..."
+            wget https://github.com/aquasecurity/trivy/releases/download/v0.52.2/trivy_0.52.2_Linux-64bit.deb
+            echo "Installing Trivy..."
+            sudo dpkg -i trivy_0.52.2_Linux-64bit.deb
+            trivy --version
+            '''
+
+            // Perform Trivy Scan
+            echo "Scanning for vulnerabilities in Docker image..."
+            sh '''
+            trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_IMAGE}
+            '''
+        }
+    }
+}
+
 	
 	
  
