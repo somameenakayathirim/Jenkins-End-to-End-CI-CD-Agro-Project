@@ -44,7 +44,7 @@ pipeline {
 		echo "Scanning for vulnerabilities in Docker image..."
 		sh """ 
 		export PATH=/usr/bin:$PATH
-		trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
+		/usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
 		"""
 		}
 	  }
