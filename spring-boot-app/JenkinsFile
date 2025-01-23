@@ -48,8 +48,8 @@ pipeline {
 		script {
 		
         sh """
-		   . /etc/profile
-          /usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
+		 export PATH=\$PATH:/usr/bin
+         trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
         """
         
 		}
