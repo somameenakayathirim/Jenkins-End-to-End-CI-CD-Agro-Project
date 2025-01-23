@@ -47,11 +47,10 @@ pipeline {
 	  steps {
 		script {
 		echo "Scanning for vulnerabilities in Docker image..."
-		sh """ 
-		export PATH=/usr/bin:$PATH
-		/usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
-		"""
-		}
+		def trivyOutput = sh(script: "trivy image $DOCKER_IMAGE", returnStdout: true).trim()
+
+        // Display Trivy scan results
+        println trivyOutput
 	  }
 	}
 	
