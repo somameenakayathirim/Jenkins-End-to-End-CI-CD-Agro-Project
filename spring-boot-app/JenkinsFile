@@ -37,7 +37,12 @@ pipeline {
         }
       }
     }
-    
+    stage('Debug Environment') {
+    steps {
+        sh 'env && which trivy'
+    }
+}
+
 	stage('Security Scanning with Trivy') {
 	  steps {
 		script {
