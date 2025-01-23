@@ -65,6 +65,13 @@
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		<groupId>org.junit.vintage</groupId>
+		<artifactId>junit-vintage-engine</artifactId>
+		<version>5.7.0</version> <!-- Or the version that corresponds to your JUnit 5 version -->
+		<scope>test</scope>
+	    </dependency>
+
     </dependencies>
 
     <build>
