@@ -51,6 +51,7 @@ pipeline {
 
         // Display Trivy scan results
         println trivyOutput
+		}
 	  }
 	}
 	
