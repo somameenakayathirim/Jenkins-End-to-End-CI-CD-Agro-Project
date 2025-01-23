@@ -48,6 +48,7 @@ pipeline {
 		script {
 		
         sh """
+		   source /etc/profile
           /home/ubuntu/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
         """
         
