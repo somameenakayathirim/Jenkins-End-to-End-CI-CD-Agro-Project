@@ -46,11 +46,11 @@ pipeline {
 	stage('Security Scanning with Trivy') {
 	  steps {
 		script {
-		echo "Scanning for vulnerabilities in Docker image..."
-		def trivyOutput = sh(script: "trivy image $DOCKER_IMAGE", returnStdout: true).trim()
-
-        // Display Trivy scan results
-        println trivyOutput
+		dir('/var/lib/jenkins') {
+        sh """
+          /usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
+        """
+        }
 		}
 	  }
 	}
