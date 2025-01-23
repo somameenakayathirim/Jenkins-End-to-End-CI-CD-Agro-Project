@@ -46,11 +46,11 @@ pipeline {
 	stage('Security Scanning with Trivy') {
 	  steps {
 		script {
-		dir('/var/lib/jenkins') {
+		
         sh """
-          /usr/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
+          /home/ubuntu/bin/trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
         """
-        }
+        
 		}
 	  }
 	}
