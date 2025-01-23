@@ -5,6 +5,10 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
+  environment {
+        DOCKER_IMAGE="smkayathiri/ci-cd:${BUILD_NUMBER}"
+        REGISTRY_CREDENTIALS=credentials('docker-cred')
+      }
   stages{
    
     stage ('Build Maven') {
@@ -19,10 +23,7 @@ pipeline {
       }
     }
     stage('build docker and push to docker hub') {
-      environment {
-        DOCKER_IMAGE="smkayathiri/ci-cd:${BUILD_NUMBER}"
-        REGISTRY_CREDENTIALS=credentials('docker-cred')
-      }
+      
       steps {
         script {
           sh 'cd spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
@@ -40,7 +41,7 @@ pipeline {
 		script {
 		echo "Scanning for vulnerabilities in Docker image..."
 		sh """ 
-		trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_IMAGE} 
+		trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
 		"""
 		}
 	  }
