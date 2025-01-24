@@ -34,7 +34,7 @@ pipeline {
         sh 'cd spring-boot-app && mvn test'
       }
     }
-    stage('build docker and push to docker hub') {
+    stage('Build docker Image and push to Docker hub') {
       
       steps {
         script {
@@ -47,13 +47,9 @@ pipeline {
         }
       }
     }
-    stage('Debug Environment') {
-    steps {
-        sh 'env'
-    }
-}
 
-	 stage('Install Trivy and Perform Scan') {
+
+	 stage('Perform Trivy Scan') {
     steps {
         script {
             // Install wget and Trivy without sudo
@@ -87,7 +83,7 @@ pipeline {
 	
 	
  
-	stage('Deploy to Agro') {
+	stage('Update Deployment manifest to Deploy in Agro') {
       environment {
         GIT_REPO_NAME = "Jenkins-End-to-End-CI-CD-Agro-Project"
         GIT_USER_NAME = "somameenakayathirim"
