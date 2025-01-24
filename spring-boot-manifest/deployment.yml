@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: smkayathiri/ci-cd:replaceImageTag
+        image: smkayathiri/ci-cd:16
         ports:
         - containerPort: 8080
