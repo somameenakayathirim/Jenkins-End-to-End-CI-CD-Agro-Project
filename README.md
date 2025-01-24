@@ -121,7 +121,7 @@ Screenshots to create Jenkins Pipeline
 
 Select the branch and give JenkinsFile path as below
 
-![Screenshot](images/jenkins-create-pipeline.png)
+![Screenshot](images/jenkins-create-pipeline2.png)
 
 
 
@@ -147,13 +147,15 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
 ```
 
+Below screenshot to verify argocd is installed properly.
+
 ![Screenshot](images/argocd-svc.png)
 
 
 ### 5. **Deploy Application Using ArgoCD**
-- Access the ArgoCD UI with admin as username and password generated at above step.
+- Access the ArgoCD UI with external IP of argocd-server and give admin as username and password generated at above step.
 - Create a new application:
-  - GitHub Repository: `https://github.com/somameenakayathirim/Jenkins-End-to-End-CI-CD-Project`
+  - GitHub Repository: `https://github.com/somameenakayathirim/Jenkins-End-to-End-CI-CD-Project.git`
   - Path: `spring-boot-manifest`
   - Sync the application.
 
@@ -170,13 +172,13 @@ kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.pas
 
 ![Screenshot](images/Argocd-deploy.png)
 
-4. Verify the application is running in the Kubernetes cluster:
+4. Verify the application is running in the Kubernetes cluster and note down the external ip of spring-boot-app-service to access the application
    ```bash
    kubectl get pods 
    kubectl get svc
    ```
 
-   ![Screenshot](images/Spring-boot-app-deploy.png)
+   ![Screenshot](images/spring-boot-app-deploy.png)
 
 5. Verify the application is launched in browser
 
