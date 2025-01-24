@@ -89,7 +89,7 @@ pipeline {
              git config user.name "Kayathiri"
              BUILD_NUMBER=${BUILD_NUMBER}
              sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-manifest/deployment.yml
-             git add spring-boot-app-manifests/deployment.yml
+             git add spring-boot-manifest/deployment.yml
              git commit -m "Update the build version ${BUILD_NUMBER}"
              git push https://${GIT_AUTH_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
              
