@@ -98,6 +98,51 @@ This project demonstrates a complete CI/CD pipeline for a Spring Boot applicatio
 
 ---
 
+
+## Adding Credentials in Jenkins
+
+### 1. Add Docker Credentials
+- Go to **Manage Jenkins** > **Credentials** > **Global credentials (unrestricted)** > **Add Credentials**.
+- Select **Username with password**:
+  - **Username**: Your Docker Hub username.
+  - **Password**: Your Docker Hub password.
+  - **ID**: Set an ID (e.g., `docker-cred`).
+
+### 2. Add SonarQube Token
+- Generate a token in SonarQube:
+  - Log in to SonarQube > Go to **My Account** > **Security** > **Generate Token**.
+- In Jenkins:
+  - Go to **Manage Jenkins** > **Credentials** > **Global credentials (unrestricted)** > **Add Credentials**.
+  - Select **Secret text**:
+    - **Secret**: Paste the token generated in SonarQube.
+    - **ID**: Set an ID (e.g., `sonarqube`).
+
+### 3. Add GitHub Token
+- Generate a personal access token in GitHub:
+  - Go to **GitHub Settings** > **Developer Settings** > **Personal Access Tokens** > **Generate New Token**.
+  - Select necessary scopes (e.g., `repo`).
+- In Jenkins:
+  - Go to **Manage Jenkins** > **Credentials** > **Global credentials (unrestricted)** > **Add Credentials**.
+  - Select **Secret text**:
+    - **Secret**: Paste the token generated in GitHub.
+    - **ID**: Set an ID (e.g., `github`).
+
+### 4. Add SonarQube URL
+- In Jenkins:
+  - Go to **Manage Jenkins** > **Credentials** > **Global credentials (unrestricted)** > **Add Credentials**.
+  - Select **Secret text**:
+    - **Secret**: Paste your SonarQube server URL (e.g., `http://your-sonarqube-server`).
+    - **ID**: Set an ID (e.g., `sonarqube-url`).
+
+
+Screenshot for jenkins credentials
+
+
+![Screenshot](images/jenkins-credentials.png)
+
+---
+
+
 ## Pipeline Stages
 1. **Build Maven**: Compiles and packages the application.
 2. **Static Code Analysis**: Analyzes code with SonarQube.
@@ -134,14 +179,6 @@ Screenshots to create Jenkins Pipeline
 Select the branch and give JenkinsFile path as below
 
 ![Screenshot](images/jenkins-create-pipeline2.png)
-
-Also, configure the credentials under manage plugin for Docker, SonarQube, GIT
-1.Give Username and password for Docker login
-2.Generate a token in SonarQube and give as secret text
-3.Generate a token in GIT and give as secret text
-4.Give SonarQube URL as secret text.
-
-![Screenshot](images/jenkins-credentials.png)
 
 
 
