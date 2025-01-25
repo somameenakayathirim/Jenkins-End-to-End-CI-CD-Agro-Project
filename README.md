@@ -61,7 +61,7 @@ This project demonstrates a complete CI/CD pipeline for a Spring Boot applicatio
    ```
 5. For AWS EC2, ensure port 8080 (TCP) is open in the security group settings.
 
-6. Install docker and 
+6. Install docker in AWS EC2
    ```bash
    sudo apt update
    sudo apt install docker.io
