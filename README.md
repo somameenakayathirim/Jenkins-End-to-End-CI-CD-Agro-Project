@@ -61,6 +61,18 @@ This project demonstrates a complete CI/CD pipeline for a Spring Boot applicatio
    ```
 5. For AWS EC2, ensure port 8080 (TCP) is open in the security group settings.
 
+6. Install docker and 
+   ```bash
+   sudo apt update
+   sudo apt install docker.io
+   ```
+   Give User permission to Jenkins
+   ```bash
+      sudo su - 
+      usermod -aG docker jenkins
+      usermod -aG docker ubuntu
+      systemctl restart docker
+   ```
 ---
 
 ## SonarQube Installation
@@ -76,7 +88,7 @@ This project demonstrates a complete CI/CD pipeline for a Spring Boot applicatio
 3. Download and install SonarQube:
    ```bash
    wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.8.100196.zip
-   unzip *
+   unzip sonarqube-9.9.8.100196.zip
    chmod -R 755 sonarqube-9.9.8.100196
    chown -R sonarqube:sonarqube sonarqube-9.9.8.100196
    cd sonarqube-9.9.8.100196/bin/linux-x86-64/
@@ -122,6 +134,14 @@ Screenshots to create Jenkins Pipeline
 Select the branch and give JenkinsFile path as below
 
 ![Screenshot](images/jenkins-create-pipeline2.png)
+
+Also, configure the credentials under manage plugin for Docker, SonarQube, GIT
+1.Give Username and password for Docker login
+2.Generate a token in SonarQube and give as secret text
+3.Generate a token in GIT and give as secret text
+4.Give SonarQube URL as secret text.
+
+![Screenshot](images/jenkins-credentials.png)
 
 
 
